@@ -1,0 +1,27 @@
+[package]
+name = "grim-core"
+version = "0.3.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT"
+
+[features]
+default = []
+legacy-tools = ["dep:clap"]
+
+[[bin]]
+name = "grimctl"
+path = "src/bin/grimctl.rs"
+required-features = ["legacy-tools"]
+
+[dependencies]
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+lz4_flex = "0.11"
+tempfile = "3"
+dirs = "6"
+sysinfo = "0.36"
+clap = { version = "4", features = ["derive"], optional = true }
+fs4 = "1.1"

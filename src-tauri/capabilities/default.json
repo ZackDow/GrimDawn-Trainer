@@ -1,0 +1,6 @@
+{
+  "identifier": "default",
+  "description": "Local trainer window and file selection",
+  "windows": ["main"],
+  "permissions": ["core:default", "dialog:allow-open"]
+}

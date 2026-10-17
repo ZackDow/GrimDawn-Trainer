@@ -1,0 +1,16 @@
+[workspace]
+members = ["crates/grim-core", "src-tauri"]
+resolver = "3"
+
+# Full debuginfo for every dependency made target/debug about 4 GB.
+[profile.dev]
+debug = "line-tables-only"
+
+[profile.dev.package."*"]
+debug = false
+
+[profile.release]
+opt-level = "s"
+lto = "thin"
+codegen-units = 1
+strip = true

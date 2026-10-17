@@ -1,0 +1,16 @@
+node_modules/
+dist/
+target/
+.tools/
+.local-test/
+verification-output*/
+src-tauri/gen/
+local-test/
+release/
+*.log
+runtime/bin/grim-session-v2.dll
+runtime/bin/grim-session-v3.dll
+runtime/bin/grim-session-v4.dll
+runtime/bin/grim-session-v5.dll
+runtime/bin/grim-session-v6.dll
+runtime/bin/grim-session-v7.dll

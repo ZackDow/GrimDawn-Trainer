@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Grim Dawn Trainer",
+  "version": "0.3.0",
+  "identifier": "net.grimtrainer.desktop",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://127.0.0.1:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Grim Dawn Trainer",
+        "width": 1180,
+        "height": 850,
+        "minWidth": 760,
+        "minHeight": 580
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost data:; style-src 'self' 'unsafe-inline'; connect-src ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "appimage"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "shortDescription": "Session-only Grim Dawn live trainer",
+    "category": "Utility",
+    "linux": {
+      "deb": {
+        "depends": ["libc6 (>= 2.39)", "libwebkit2gtk-4.1-0", "libgtk-3-0"]
+      }
+    },
+    "longDescription": "Live XP, loot, density, cooldown controls and point grants, with automatic reset on disconnect.",
+    "resources": {
+      "../runtime/bin/grim-bridge.exe": "runtime/grim-bridge.exe",
+      "../runtime/bin/grim-session-v8.dll": "runtime/grim-session-v8.dll",
+      "../runtime/vendor/minhook/LICENSE.txt": "runtime/MinHook-LICENSE.txt"
+    }
+  }
+}
