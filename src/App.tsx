@@ -38,7 +38,7 @@ export default function App() {
           </div>
         </div>
         <span className="version">
-          v0.3.0{!desktop && " · Interface preview"}
+          v0.3.1{!desktop && " · Interface preview"}
         </span>
       </header>
       {!desktop && (

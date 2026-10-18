@@ -2,11 +2,13 @@
 from pathlib import Path
 import hashlib
 import shutil
+import json
 import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
+VERSION = json.loads((ROOT / "package.json").read_text())["version"]
 RELEASE = ROOT / "release"
-PORTABLE = RELEASE / "grim-dawn-trainer-0.3.0-linux-x86_64"
+PORTABLE = RELEASE / f"grim-dawn-trainer-{VERSION}-linux-x86_64"
 PORTABLE.mkdir(parents=True, exist_ok=True)
 (PORTABLE / "runtime").mkdir(exist_ok=True)
 files = {
@@ -29,10 +31,10 @@ with zipfile.ZipFile(archive_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) a
         archive.write(PORTABLE / destination, PORTABLE.name + "/" + destination)
 with zipfile.ZipFile(archive_path) as archive:
     assert archive.testzip() is None
-deb = RELEASE / "grim-dawn-trainer_0.3.0_amd64.deb"
-shutil.copy2(ROOT / "target/release/bundle/deb/Grim Dawn Trainer_0.3.0_amd64.deb", deb)
-artifacts = [archive_path, deb, RELEASE / "grim-dawn-trainer-0.3.0-source.zip"]
-(RELEASE / "SHA256SUMS-0.3.0").write_text("".join(
+deb = RELEASE / f"grim-dawn-trainer_{VERSION}_amd64.deb"
+shutil.copy2(ROOT / f"target/release/bundle/deb/Grim Dawn Trainer_{VERSION}_amd64.deb", deb)
+artifacts = [archive_path, deb, RELEASE / f"grim-dawn-trainer-{VERSION}-source.zip"]
+(RELEASE / f"SHA256SUMS-{VERSION}").write_text("".join(
     hashlib.sha256(path.read_bytes()).hexdigest() + "  " + path.name + "\n"
     for path in artifacts
 ))

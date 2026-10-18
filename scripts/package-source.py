@@ -1,9 +1,11 @@
 """Package source and compiled trainer runtime; never bundle game/save data."""
 from pathlib import Path
+import json
 import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
-OUTPUT = ROOT / "release" / "grim-dawn-trainer-0.3.0-source.zip"
+VERSION = json.loads((ROOT / "package.json").read_text())["version"]
+OUTPUT = ROOT / "release" / f"grim-dawn-trainer-{VERSION}-source.zip"
 ROOT_FILES = [".gitignore", "Cargo.toml", "Cargo.lock", "package.json", "package-lock.json", "tsconfig.json", "vite.config.ts", "index.html", "README.md", "LICENSE"]
 TREES = ["src", "scripts", "assets", "docs", "crates", ".github", "runtime"]
 NATIVE = ["src-tauri/Cargo.toml", "src-tauri/build.rs", "src-tauri/tauri.conf.json"]

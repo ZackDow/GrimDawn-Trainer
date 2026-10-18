@@ -82,6 +82,13 @@ pub fn receipts(data: &Path) -> Result<Vec<Receipt>> {
     Ok(out)
 }
 pub fn is_owned(data: &Path, target: &Path, hash: &str) -> Result<bool> {
+    // Receipts store the canonical path written by commit_guarded.
+    let canonical = target
+        .parent()
+        .and_then(|p| p.canonicalize().ok())
+        .zip(target.file_name())
+        .map(|(parent, name)| parent.join(name));
+    let target = canonical.as_deref().unwrap_or(target);
     Ok(receipts(data)?
         .iter()
         .any(|r| r.target == target && r.kind == "rules" && r.after.as_deref() == Some(hash)))
